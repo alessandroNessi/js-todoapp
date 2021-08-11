@@ -79,8 +79,11 @@ header div{
 /*////header*/
 /* main */
 main{
-    overflow-y: scroll;
+    overflow-y:scroll;
     border-radius: 5px;
+}
+main::-webkit-scrollbar{
+    width: 0px;
 }
 .button__new--task{
     width: 20px;
@@ -151,6 +154,9 @@ input[type="checkbox"]:checked + .container__checkbox--text{
     font-size: 14px;
     padding-left: 3px;
     color: white;
+    background: var(--CheckBackground);
+}
+.button__check--background{
     background: var(--CheckBackground);
 }
 .container__checkbox--text{

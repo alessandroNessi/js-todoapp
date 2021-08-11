@@ -17,9 +17,7 @@
         <link rel="stylesheet" href="css/style.css">
         <!-- favicon link -->
         <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-
         <title>Frontend Mentor | Todo app</title>
-
     </head>
 
     <body>
@@ -32,52 +30,17 @@
                 </div>
             </header>
             <div class="newtask list__item d-flex align-items-center">
-                <button class="button__new--task"></button><span class="pe-3 ps-3">Create a new todo...</span>
+                <button class="button__new--task" onclick="showNewTask()"></button><span class="pe-3 ps-3">Create a new todo...</span><input maxlength="35" placeholder="Max 35 characters" class="d-none ms-3" type="text" name="" id="newTaskText"><button onclick="addNewTask()" class="text-white rounded-pill d-none button__check--background ms-3">add</button>
             </div>
             <main class="main__grid">
                 <ul class="" id="itemList">
 
                 </ul>
-                <!-- <div class="d-flex justify-content-between list__item">
-                    <label class="container__checkbox d-flex align-items-center position-relative" for="checkbox1"><input type="checkbox" id="checkbox1" name="checkbox1" value="1"><span class="container__checkbox--text pe-3 ps-3">testo della checkbox</span></label><button class="button__delete" onclick="deleteListItem('1')"></button>
-                </div>
-                <div class="d-flex justify-content-between list__item">
-                    <label class="container__checkbox d-flex align-items-center position-relative" for="checkbox2">
-                        <input type="checkbox" id="checkbox2" name="checkbox2" value="2">
-                        <span class="container__checkbox--text pe-3 ps-3">testo della checkbox</span>
-                    </label>
-                    <button class="button__delete" onclick="deleteListItem('2')"></button>
-                </div>
-                <div class="d-flex justify-content-between list__item">
-                    <label class="container__checkbox d-flex align-items-center position-relative" for="checkbox3">
-                        <input type="checkbox" id="checkbox3" name="checkbox3" value="3">
-                        <span class="container__checkbox--text pe-3 ps-3">testo della checkbox</span>
-                    </label>
-                    <button class="button__delete" onclick="deleteListItem('3')"></button>
-                </div>
-                <div class="d-flex justify-content-between list__item">
-                    <label class="container__checkbox d-flex align-items-center position-relative" for="checkbox4">
-                        <input type="checkbox" id="checkbox4" name="checkbox4" value="4">
-                        <span class="container__checkbox--text pe-3 ps-3">testo della checkbox</span>
-                    </label>
-                    <button class="button__delete" onclick="deleteListItem('4')"></button>
-                </div>
-                <div class="d-flex justify-content-between list__item">
-                    <label class="container__checkbox d-flex align-items-center position-relative" for="checkbox5">
-                        <input type="checkbox" id="checkbox5" name="checkbox5" value="5">
-                        <span class="container__checkbox--text pe-3 ps-3">testo della checkbox</span>
-                    </label>
-                    <button class="button__delete" onclick="deleteListItem('5')"></button>
-                </div>
-                <div class="d-flex justify-content-between list__item align-items-center">
-                    <span class="list__summary">5 items left</span>
-                    <button class="list__summary">Clear Completed</button>
-                </div> -->
             </main>
             <nav class="d-flex justify-content-center list__item align-items-center">
-                <button class="navbar__item p-2">All</button>
-                <button class="navbar__item p-2">Active</button>
-                <button class="navbar__item p-2">Completed</button>
+                <button class="navbar__item p-2" onclick="showAll()">All</button>
+                <button class="navbar__item p-2" onclick="showActive()">Active</button>
+                <button class="navbar__item p-2" onclick="showCompleted()">Completed</button>
             </nav>
             <footer class="d-flex justify-content-center list__item align-items-center">
                 <span>Drag and drop to reorder list</span>
