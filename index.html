@@ -40,7 +40,8 @@
             <nav class="d-flex justify-content-center list__item align-items-center">
                 <button class="navbar__item p-2" onclick="showAll()">All</button>
                 <button class="navbar__item p-2" onclick="showActive()">Active</button>
-                <button class="navbar__item p-2" onclick="showCompleted()">Completed</button>
+                <button id="showCompletedButton" class="navbar__item p-2" onclick="showCompleted()">Completed</button>
+                <button id="deleteCompletedButton" class="navbar__item p-2 d-none" onclick="deleteCompleted()">Delete completed</button>
             </nav>
             <footer class="d-flex justify-content-center list__item align-items-center">
                 <span>Drag and drop to reorder list</span>
