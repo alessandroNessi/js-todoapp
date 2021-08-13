@@ -200,3 +200,6 @@ nav .navbar__item:hover{
         background-image: url("../images/bg-desktop-dark.jpg");
     }
 }
+.over {
+    border: 3px dotted #666;
+}
