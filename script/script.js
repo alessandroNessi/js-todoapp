@@ -4,6 +4,7 @@ var listPopulationId = [1,2,3,4,5,6];
 var list = document.getElementById('itemList');
 var listHeight = document.getElementsByTagName("main")[0].clientHeight;
 var dragId, dropId, dragSrcEl;
+var itemsLeftText=" items left";
 var thisId = false; //i set thisid false when is not in drag and drop so if it's a drag and drop operation the changeid function won't change the index of checked
 let items = document.querySelectorAll('li');
 //gives height to ul
@@ -14,13 +15,13 @@ function populateTable(){
         addListElement(i);
     }
 }
+function refreshItemsLeft(){
+    document.getElementById("items__left--label").innerHTML = listPopulation.length + itemsLeftText;
+}
 //given an index number populate the html with a corresponding element wid id of checkbox, value etc of [i+1]
 function addListElement(i){
     //add an element with checkbox id =i+1
     var node = document.createElement("li");
-    // node.style.add(ondrop="drop(event)");
-    // node.addEventListener("ondrop",ondrop,false);
-    // ondragover=\"allowDrop(event)\"");
         node.insertAdjacentHTML('afterbegin', '<div class="d-flex justify-content-between list__item">'+
         '<label class="container__checkbox d-flex align-items-center position-relative" for="checkbox'+(listPopulationId[i])+'">'+'<input type="checkbox" id="checkbox'+(listPopulationId[i])+'" name="checkbox'+(listPopulationId[i])+'" onchange = changePopulationStatus("'+(listPopulationId[i])+'") value="'+(listPopulationId[i])+'" '+ listPopulationStatus[i] +'>'+'<span class="container__checkbox--text pe-3 ps-3">'+ listPopulation[i] +'</span></label>'+'<button class="button__delete" onclick="deleteListItem(\''+(listPopulationId[i])+'\')"></button>'+
     '</div>');
@@ -34,7 +35,10 @@ function addListElement(i){
         node.addEventListener('drop', dragDrop, false);
         node.id= listPopulationId[i];
         list.appendChild(node);
+        refreshItemsLeft();
 }
+//start the dragging, i get this id and saves in thisId var same for the content saved in dragSrcEl
+//and change this opacity to "ghost" it
 function handleDragStart(e) {
     this.style.opacity = '0.33';
     dragId = this.id;
@@ -42,24 +46,29 @@ function handleDragStart(e) {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
 }
-
+//return the opacity of the item i dragged to 1
 function handleDragEnd(e) {
     this.style.opacity = '1';
     // items.forEach(element => element.classList.remove('over');
     // });
 }
+//just standard prevent devault of the browser
 function handleDragOver(e) {
     if (e.preventDefault) {
         e.preventDefault();
     }
     return false;
 }
+//i would like to add the class over to gives a different border to the item but when i go over the 
+//other content of <li></li> starts the handledragleave(e) and makes a mess
 function handleDragEnter(e) {
-    this.classList.add('over');
+    // this.classList.add('over');
 }
+//messy shit start event even when i go over the div and checkbox inside the <li></li>
 function handleDragLeave(e) {
-    this.classList.remove('over');
+    // this.classList.remove('over');
 }
+//swapping content on dragdrop
 function dragDrop(e) {
     e.stopPropagation();
     if (dragSrcEl !== this) {
@@ -81,6 +90,12 @@ function dragDrop(e) {
         listPopulationId[dragId]=temp;
         dragSrcEl.innerHTML = this.innerHTML;
         this.innerHTML = e.dataTransfer.getData('text/html');
+        //check if the  checkbox is still cheched, because if you press on it on the drag and drop operation it would change the icon but not the value in the array listpopulationstatus
+        if( !this.getElementsByTagName("input")[0].checked && listPopulationStatus[thisId]=="checked"){
+            this.getElementsByTagName("input")[0].checked=true;
+        }else if( this.getElementsByTagName("input")[0].checked && listPopulationStatus[thisId]==""){
+            this.getElementsByTagName("input")[0].checked=false;
+        }
         dragId="null";
         thisId=false; //i set thisid false when is not in drag and drop so if it's a drag and drop operation the changeid function won't change the index of checked
     }
@@ -91,10 +106,24 @@ function changeDayNight(){
         document.getElementById("moonIcon").classList.remove("d-none");
         document.getElementById("sunIcon").classList.add("d-none");
         // toogle nightmode
+        document.documentElement.style.setProperty('--DarkGrayishBlue', "hsl(236,33%,92%)");
+        document.documentElement.style.setProperty('--VeryDarkBlue', 'hsl(233,11%,84%)');
+        document.documentElement.style.setProperty('--VeryDarkGrayishBlue', 'hsl(0,0%,98%)');
+        document.documentElement.style.setProperty('--LightGrayishBlue', 'hsl(235,19%,35%)');
+        document.documentElement.style.setProperty('--DarkGrayishBlueFooter', 'hsl(236,9%,61%)');
+        document.documentElement.style.setProperty('--backgroundImageLg', 'url("../images/bg-mobile-light.jpg")');
+        document.documentElement.style.setProperty('--backgroundImageSm', 'url("../images/bg-desktop-light.jpg")');
     }else{
         document.getElementById("sunIcon").classList.remove("d-none");
         document.getElementById("moonIcon").classList.add("d-none");
         // toggle daymode
+        document.documentElement.style.setProperty('--DarkGrayishBlue', "hsl(234,11%,52%)");
+        document.documentElement.style.setProperty('--VeryDarkBlue', 'hsl(235,21%,11%)');
+        document.documentElement.style.setProperty('--VeryDarkGrayishBlue', 'hsl(233,14%,35%)');
+        document.documentElement.style.setProperty('--LightGrayishBlue', 'hsl(234,39%,85%)');
+        document.documentElement.style.setProperty('--DarkGrayishBlueFooter', 'hsl(234,11%,52%)');
+        document.documentElement.style.setProperty('--backgroundImageLg', 'url("../images/bg-mobile-dark.jpg")');
+        document.documentElement.style.setProperty('--backgroundImageSm', 'url("../images/bg-desktop-dark.jpg")');
     }
 }
 //givend the id to delete search for it in the array id, return the index and delete the corresponding index elewment in html and arrays
@@ -105,6 +134,7 @@ function deleteListItem(idToDelete){
     listPopulation.splice(indexToDelete, 1);
     listPopulationStatus.splice(indexToDelete, 1);
     listPopulationId.splice(indexToDelete, 1);
+    refreshItemsLeft();
 }
 //functions that given an id of the checkbox (es 1 for checkbox1) return the index from the listPopulationId
 function getIndexId(id){
@@ -133,8 +163,6 @@ function showAll(){
     for(i=0; i<document.getElementsByTagName("main")[0].getElementsByTagName("li").length; i++){
         document.getElementsByTagName("main")[0].getElementsByTagName("li")[i].classList.remove("d-none");
     }
-    document.getElementById("showCompletedButton").classList.remove("d-none");
-    document.getElementById("deleteCompletedButton").classList.add("d-none");
 }
 //show just the elements that corespond for the listPopulationStatus ""
 function showActive(){
@@ -145,8 +173,6 @@ function showActive(){
             document.getElementsByTagName("main")[0].getElementsByTagName("li")[i].classList.remove("d-none");
         }
     }
-    document.getElementById("showCompletedButton").classList.remove("d-none");
-    document.getElementById("deleteCompletedButton").classList.add("d-none");
 }
 //show the elementes that corespond to "checked" in the listpopulationstatus, furthermore enable the "delete all checked" button
 function showCompleted(){
@@ -157,8 +183,6 @@ function showCompleted(){
             document.getElementsByTagName("main")[0].getElementsByTagName("li")[i].classList.remove("d-none");
         }
     }
-    document.getElementById("showCompletedButton").classList.add("d-none");
-    document.getElementById("deleteCompletedButton").classList.remove("d-none");
 }
 //search for elements with "completed" value inside the listpopulationstatus and gives the delete command to it
 function deleteCompleted(){
@@ -169,8 +193,6 @@ function deleteCompleted(){
             i--;
         }
     }
-    document.getElementById("showCompletedButton").classList.remove("d-none");
-    document.getElementById("deleteCompletedButton").classList.add("d-none");
 }
 //shows and hide the addnew task text input and button
 function showNewTask(){
@@ -201,6 +223,7 @@ function addNewTask(){
                 addListElement(listPopulationId.length-1);
                 //if the id is contained i exit the loop
                 exit = true;
+                document.getElementById("newTaskText").value="";
             }
         }
     }
@@ -208,6 +231,7 @@ function addNewTask(){
     document.getElementsByClassName("newtask")[0].getElementsByTagName("button")[1].classList.add("d-none");
     document.getElementsByClassName("newtask")[0].getElementsByTagName("span")[0].classList.remove("d-none");
 }
+//return true if the value is included in the array, false if isn't included
 function include(array, value){
     var isIcluded = false;
     for(var i=0; i<array.length;i++){
@@ -217,4 +241,3 @@ function include(array, value){
     }
     return isIcluded;
 }
-//drag
