@@ -27,11 +27,11 @@
             <header class="d-flex">
                 <div class="d-flex justify-content-between align-items-center">
                     <h1 class="m-0 align-text-bottom text-white">TODO</h1>
-                    <button onclick="changeDayNight()"><img id="sunIcon" class="" src="images/icon-sun.svg" alt="sun icon"> <img id="moonIcon" class="d-none" src="images/icon-moon.svg" alt="moon icon"></button>
+                    <button onclick="changeDayNight()" aria-label="Change nigh day mode"><img id="sunIcon" class="" src="images/icon-sun.svg" alt="sun icon"> <img id="moonIcon" class="d-none" src="images/icon-moon.svg" alt="moon icon"></button>
                 </div>
             </header>
             <div class="newtask list__item d-flex align-items-center">
-                <button class="button__new--task" onclick="showNewTask()"></button><span class="pe-3 ps-3">Create a new todo...</span><input maxlength="35" placeholder="Max 35 characters" class="d-none ms-3" type="text" name="" id="newTaskText"><button onclick="addNewTask()" class="text-white rounded-pill d-none button__check--background ms-3">add</button>
+                <button class="button__new--task" aria-label="New task button" onclick="showNewTask()"></button><span class="pe-3 ps-3">Create a new todo...</span><input maxlength="35" placeholder="Max 35 characters" class="d-none ms-3" type="text" name="" id="newTaskText"><button onclick="addNewTask()" class="text-white rounded-pill d-none button__check--background ms-3">add</button>
             </div>
             <main class="main__grid">
                 <ul class="" id="itemList">

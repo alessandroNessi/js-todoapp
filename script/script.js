@@ -23,7 +23,7 @@ function addListElement(i){
     //add an element with checkbox id =i+1
     var node = document.createElement("li");
         node.insertAdjacentHTML('afterbegin', '<div class="d-flex justify-content-between list__item">'+
-        '<label class="container__checkbox d-flex align-items-center position-relative" for="checkbox'+(listPopulationId[i])+'">'+'<input type="checkbox" id="checkbox'+(listPopulationId[i])+'" name="checkbox'+(listPopulationId[i])+'" onchange = changePopulationStatus("'+(listPopulationId[i])+'") value="'+(listPopulationId[i])+'" '+ listPopulationStatus[i] +'>'+'<span class="container__checkbox--text pe-3 ps-3">'+ listPopulation[i] +'</span></label>'+'<button class="button__delete" onclick="deleteListItem(\''+(listPopulationId[i])+'\')"></button>'+
+        '<label class="container__checkbox d-flex align-items-center position-relative" for="checkbox'+(listPopulationId[i])+'">'+'<input type="checkbox" id="checkbox'+(listPopulationId[i])+'" name="checkbox'+(listPopulationId[i])+'" onchange = changePopulationStatus("'+(listPopulationId[i])+'") value="'+(listPopulationId[i])+'" '+ listPopulationStatus[i] +'>'+'<span class="container__checkbox--text pe-3 ps-3">'+ listPopulation[i] +'</span></label>'+'<button class="button__delete" aria-label="Delete list element button" onclick="deleteListItem(\''+(listPopulationId[i])+'\')"></button>'+
     '</div>');
         node.setAttribute("style","height: "+(listHeight/5)+"px;");
         node.draggable=true;
